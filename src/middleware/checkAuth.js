@@ -3,7 +3,7 @@ const {
 	tokens: { secretKey },
 } = require('../app.config');
 
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
 	try {
 		const decoded = await verify(req.headers.authorization.split(' ')[1], secretKey);
 		req.userDate = decoded;

@@ -1,11 +1,9 @@
 const { Sequelize, DataTypes, Model } = require('sequelize');
-const {
-	database: { name, url,user,password,type }
-} = require('../app.config');
+const { database_name, database_url, database_user, database_password, database_type } = require('../app.config');
 
-const sequelize = new Sequelize(name, user, password, {
-	host: url,
-	dialect: type
+const sequelize = new Sequelize(database_name, database_user, database_password, {
+	host: database_url,
+	dialect: database_type
   });
 class User extends Model {}
 
@@ -41,7 +39,7 @@ User.init({
     allowNull: true
   },
   createdAt: {
-    type: DataTypes.STRING
+    type: DataTypes.DATE
     // allowNull defaults to true
   },
   updatedAt: {
