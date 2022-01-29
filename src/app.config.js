@@ -1,28 +1,9 @@
-//let tokenExpiration = 6000 * 600 * 24; // expires in 24 hours (value expresed in miliseconds.)
-const configs = {
-	//App Name
-	appName: 'Adixon Capital',
-	//Route
-	//baseUrl: 'www.Canchas.com',
-	// port = 443,
-	port: process.env.PORT || 3000,
-	tokens: {
-		// expiration: tokenExpiration,
-		secretKey: 'inversion'
-	},
-	database: {
-		name: 'adixon',
-		//NO CAMBIAR. SOLO USAR LOCALHOST
-		//url: 'mongodb://18.208.211.71:27017/'
-		url: 'localhost',
-		user:"root",
-		password:"",
-		type:"mysql"
-	}
-	/*  mail :{
-    user: 'userstore@gmail.com',
-    pass: 'pedrofabian2019clave123*'
-  } */
-};
 
-module.exports = configs;
+  module.exports.appName = process.env.APP_NAME || "Adixion_capital";
+  module.exports.port = 1337
+  module.exports.secretKey = "inversion";
+  module.exports.database_name = process.env.DATABASE_NAME || "adixon";
+  module.exports.database_url = process.env.DATABASE_URL || "localhost";
+  module.exports.database_user = process.env.DATABASE_USER || "root";
+  module.exports.database_password = process.env.DATABASE_PASSWORD || "";
+  module.exports.database_type = process.env.DATABASE_TYPE || "mysql";

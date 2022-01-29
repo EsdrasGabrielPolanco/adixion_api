@@ -1,15 +1,16 @@
 const { hash, compare } = require('bcrypt');
 const { sign, verify } = require('jsonwebtoken');
-const {
-	tokens: { secretKey },
-} = require('../app.config');
+const  { secretKey } = require('../app.config');
 const User = require('../models/user');
 
 exports.signup = async (req, res) => {
 	try {
 		let { email, password } = req.body;
-		let user = await User.findOne({ email });
-
+		let user = await User.findOne({
+			where: {
+			  email: email
+			}
+		  });
 		if (user) {
 			return res.status(400).json({
 				errors: { message: 'El email ya existe.' },
@@ -36,12 +37,14 @@ exports.signup = async (req, res) => {
 					user,
 				});
 			} catch (error) {
+				console.error(error)
 				res.status(500).json({
 					error,
 				});
 			}
 		}
 	} catch (error) {
+		console.error(error)
 		res.status(500).json({
 			error,
 		});
@@ -52,7 +55,12 @@ exports.login = async (req, res) => {
 	let { email, password } = req.body;
 
 	try {
-		let user = await User.findOne({ email });
+		let user = await User.findOne({
+			where: {
+			  email: email
+			}
+		  });
+		 
 		if (user) {
 			try {
 				let match = await compare(password, user.password);
@@ -71,11 +79,13 @@ exports.login = async (req, res) => {
 					token_type: 'Bearer ',
 				};
 
-				res.status(201).json({
+				res.status(201).send({
+					status:201,
 					message: 'Autenticación exitosa.',
 					token,
 				});
 			} catch (error) {
+				console.error(error)
 				res.status(400).json({
 					message: 'Fallo de autenticación',
 				});
@@ -86,6 +96,7 @@ exports.login = async (req, res) => {
 			});
 		}
 	} catch (error) {
+		console.log(error)
 		res.status(500).json({
 			error,
 		});
