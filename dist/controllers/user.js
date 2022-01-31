@@ -102,11 +102,13 @@ exports.login = async (req, res) => {
       } catch (error) {
         console.error(error);
         res.status(400).json({
+          status: 400,
           message: 'Fallo de autenticación'
         });
       }
     } else {
-      res.json.status(404).json({
+      res.status(404).json({
+        status: 404,
         message: 'Email no encontrado, el usuario no existe'
       });
     }
